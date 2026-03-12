@@ -19,6 +19,7 @@ import ImportExport  from "./pages/ImportExport";
 import Login        from "./pages/Login";
 import ResetPassword from "./pages/ResetPassword";
 import globalStyles from "./styles/globalStyles";
+import NotFound from "./pages/NotFound";
 
 function Spinner({ bg = "#080c14" }) {
   return (
@@ -86,17 +87,28 @@ function AuthGate() {
   const { theme } = useTheme();
   const [localUser, setLocalUser] = useState(null);
 
-  useEffect(() => { if (authUser) setLocalUser(authUser); }, [authUser]);
+  useEffect(() => {
+    if (authUser) setLocalUser(authUser);
+  }, [authUser]);
 
-  const params  = new URLSearchParams(window.location.search);
-  const mode    = params.get("mode");
+  const params = new URLSearchParams(window.location.search);
+  const mode = params.get("mode");
   const oobCode = params.get("oobCode");
-  if (mode === "resetPassword" && oobCode) {
+  const pathname = window.location.pathname;
+
+  const validPaths = ["/"];
+  const isResetPassword = mode === "resetPassword" && oobCode;
+  const isValidPath = validPaths.includes(pathname);
+
+  if (!isValidPath && !isResetPassword) {
+    return <NotFound />;
+  }
+
+  if (isResetPassword) {
     return (
       <ResetPassword
         oobCode={oobCode}
         onDone={() => {
-         
           window.history.replaceState({}, "", "/");
           window.location.reload();
         }}

@@ -293,6 +293,20 @@ export default function LoginScreen({ onLogin }) {
     if (ok !== null) go("forgot-sent");
   };
 
+  const handleMagicLink = async () => {
+  if (!email || !email.includes("@")) {
+    setLocalErr("Informe um e-mail válido");
+    return;
+  }
+
+  try {
+    await sendMagicLink(email);
+    go("magic-sent");
+  } catch (err) {
+    setLocalErr("Não foi possível enviar o link de acesso");
+  }
+};
+
   const inp = {
     width:"100%", background:"rgba(255,255,255,0.04)", border:"1.5px solid rgba(255,255,255,0.08)",
     borderRadius:14, padding:"0.9rem 1.125rem", color:"#f1f5f9", fontSize:15,

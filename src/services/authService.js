@@ -41,8 +41,11 @@ export async function sendMagicLink(email) {
     url: window.location.origin + "/",
     handleCodeInApp: true,
   };
+
   await sendSignInLinkToEmail(auth, email, actionCodeSettings);
   localStorage.setItem("emailForSignIn", email);
+
+  return true;
 }
 
 
