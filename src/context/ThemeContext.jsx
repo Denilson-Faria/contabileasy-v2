@@ -1,3 +1,6 @@
+// context/ThemeContext.jsx
+// Controla dark/light mode em toda a aplicação.
+// Persiste a preferência no localStorage.
 
 import { createContext, useContext, useState, useEffect } from "react";
 
@@ -7,17 +10,19 @@ export function ThemeProvider({ children }) {
   const [isDark, setIsDark] = useState(() => {
     const saved = localStorage.getItem("ce_theme");
     if (saved) return saved === "dark";
-    
+    // Respeita preferência do sistema operacional
     return window.matchMedia("(prefers-color-scheme: dark)").matches;
   });
 
   useEffect(() => {
     localStorage.setItem("ce_theme", isDark ? "dark" : "light");
+    // Sincroniza o fundo do body com o tema (PWA safe area)
+    document.body.style.backgroundColor = isDark ? "#080c14" : "#f8fafc";
   }, [isDark]);
 
   const toggle = () => setIsDark(d => !d);
 
- 
+  // Paleta dark
   const dark = {
     bg:          "#080c14",
     bgSecondary: "#0d1424",
@@ -36,7 +41,7 @@ export function ThemeProvider({ children }) {
     overlay:     "rgba(0,0,0,0.7)",
   };
 
- 
+  // Paleta light
   const light = {
     bg:          "#f8fafc",
     bgSecondary: "#ffffff",
