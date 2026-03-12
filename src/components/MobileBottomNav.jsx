@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useApp } from "../context/AppContext";
 import { useTheme } from "../context/ThemeContext";
 import Icon from "./Icon";
@@ -6,6 +6,7 @@ import { Avatar } from "./ProfileMenu";
 import { auth } from "../services/firebase";
 import { updateProfile } from "firebase/auth";
 
+// mesmos avatares do ProfileMenu
 const AVATARS = [
   {
     id: "m1", label: "Homem 1", bg: "#1e3a5f",
@@ -204,6 +205,25 @@ export default function MobileBottomNav({ onLogout, user, setUser }) {
 
   const isMoreActive = MORE_ITEMS.some(i => i.id === activeTab);
 
+  const [installPrompt, setInstallPrompt] = useState(null);
+  const [isInstalled, setIsInstalled] = useState(false);
+
+  useEffect(() => {
+    // Captura o evento de instalação
+    const handler = (e) => { e.preventDefault(); setInstallPrompt(e); };
+    window.addEventListener("beforeinstallprompt", handler);
+    // Verifica se já está instalado
+    if (window.matchMedia("(display-mode: standalone)").matches) setIsInstalled(true);
+    return () => window.removeEventListener("beforeinstallprompt", handler);
+  }, []);
+
+  const handleInstall = async () => {
+    if (!installPrompt) return;
+    installPrompt.prompt();
+    const { outcome } = await installPrompt.userChoice;
+    if (outcome === "accepted") { setIsInstalled(true); setInstallPrompt(null); }
+  };
+
   const handlePrimaryTab = (id) => {
     setMoreOpen(false);
     switchTab(id);
@@ -301,6 +321,21 @@ export default function MobileBottomNav({ onLogout, user, setUser }) {
             })}
           </div>
 
+          {/* Instalar PWA */}
+          {!isInstalled && installPrompt && (
+            <button onClick={handleInstall} style={{
+              width: "100%", marginBottom: 10, padding: "0.75rem", borderRadius: 12,
+              background: `${theme.accent}12`, border: `1px solid ${theme.accent}33`,
+              color: theme.accent, display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
+              cursor: "pointer", fontSize: 13, fontWeight: 600, fontFamily: "inherit",
+            }}>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M12 2v13M8 11l4 4 4-4"/><rect x="3" y="17" width="18" height="4" rx="2"/>
+              </svg>
+              Instalar app
+            </button>
+          )}
+
           {/* Tema + Sair */}
           <div style={{ display: "flex", gap: 8 }}>
             <button onClick={toggle} style={{
@@ -326,7 +361,7 @@ export default function MobileBottomNav({ onLogout, user, setUser }) {
       )}
 
       <nav style={{
-        position: "fixed", bottom: 16, left: 16, right: 16, zIndex: 150,
+        position: "fixed", bottom: "max(16px, calc(16px + env(safe-area-inset-bottom)))", left: 16, right: 16, zIndex: 150,
         background: isDark ? "rgba(15,20,35,0.97)" : "rgba(255,255,255,0.97)",
         borderRadius: 22, border: `1px solid rgba(255,255,255,0.1)`,
         backdropFilter: "blur(32px)", WebkitBackdropFilter: "blur(32px)",

@@ -99,7 +99,7 @@ const globalStyles = `
     .sidebar-logo        { justify-content: flex-start !important; padding: 0 1.5rem 2rem !important; }
     .main-el             { margin-left: 0 !important; width: 100% !important; overflow-x: hidden !important; }
     .mobile-btn          { display: none !important; }
-    .content-el          { padding: 0.875rem !important; padding-bottom: 96px !important; width: 100% !important; max-width: 100% !important; overflow-x: hidden !important; }
+    .content-el          { padding: 0.875rem !important; padding-bottom: max(96px, calc(96px + env(safe-area-inset-bottom))) !important; width: 100% !important; max-width: 100% !important; overflow-x: hidden !important; }
     .metrics-grid        { grid-template-columns: 1fr 1fr !important; gap: 8px !important; }
     .two-col             { grid-template-columns: 1fr !important; }
     .charts-grid         { grid-template-columns: 1fr !important; }
