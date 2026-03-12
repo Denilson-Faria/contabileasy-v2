@@ -15,24 +15,24 @@ export default function NotFound() {
     >
       <div
         style={{
-          maxWidth: 900,
           width: "100%",
-          display: "flex",
+          maxWidth: 1280,
+          display: "grid",
+          gridTemplateColumns: "minmax(320px, 460px) minmax(360px, 620px)",
           alignItems: "center",
-          justifyContent: "space-between",
-          gap: 40,
-          flexWrap: "wrap",
+          justifyContent: "center",
+          gap: "4rem",
         }}
       >
-        {/* Texto */}
-        <div style={{ flex: 1, minWidth: 280 }}>
+        <div style={{ maxWidth: 430 }}>
           <div
             style={{
-              fontSize: 60,
+              fontSize: 72,
               fontWeight: 800,
               color: "#4ade80",
               fontFamily: "'Sora', sans-serif",
-              marginBottom: 10,
+              lineHeight: 1,
+              marginBottom: 14,
             }}
           >
             404
@@ -40,10 +40,11 @@ export default function NotFound() {
 
           <h1
             style={{
-              fontSize: 32,
-              color: "#f1f5f9",
-              marginBottom: 10,
-              fontWeight: 700,
+              fontSize: 44,
+              color: "#f8fafc",
+              margin: "0 0 12px",
+              fontWeight: 800,
+              lineHeight: 1.08,
             }}
           >
             Página não encontrada
@@ -52,9 +53,9 @@ export default function NotFound() {
           <p
             style={{
               color: "#94a3b8",
-              fontSize: 15,
-              lineHeight: 1.6,
-              marginBottom: 25,
+              fontSize: 16,
+              lineHeight: 1.7,
+              marginBottom: 28,
             }}
           >
             A página que você tentou acessar não existe ou foi movida.
@@ -63,26 +64,37 @@ export default function NotFound() {
           <button
             onClick={() => (window.location.href = "/")}
             style={{
-              padding: "0.9rem 1.6rem",
-              borderRadius: 12,
+              padding: "0.95rem 1.6rem",
+              borderRadius: 14,
               border: "none",
               fontWeight: 700,
               background: "linear-gradient(135deg,#4ade80,#22d3ee)",
               color: "#052e16",
               cursor: "pointer",
               fontSize: 14,
+              boxShadow: "0 12px 30px rgba(34,211,238,0.18)",
             }}
           >
             Voltar para o início
           </button>
         </div>
 
-        {/* SVG */}
-        <div style={{ flex: 1, minWidth: 260 }}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
           <img
             src={svg404}
             alt="Página não encontrada"
-            style={{ width: "100%", maxWidth: 420 }}
+            style={{
+              width: "100%",
+              maxWidth: 620,
+              height: "auto",
+              display: "block",
+            }}
           />
         </div>
       </div>
