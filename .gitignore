@@ -1,0 +1,22 @@
+# Dependências
+node_modules/
+
+# Variáveis de ambiente — NUNCA subir pro GitHub
+.env
+.env.local
+.env.production
+
+# Build
+dist/
+build/
+
+# Vite
+.vite/
+
+# Editor
+.vscode/
+.idea/
+
+# Sistema
+.DS_Store
+Thumbs.db
