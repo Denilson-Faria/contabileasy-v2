@@ -120,7 +120,7 @@ const globalStyles = `
     .extrato-summary     { flex-direction: column !important; gap: 6px !important; }
     .export-btns         { width: 100% !important; }
     .export-btns button  { flex: 1 !important; justify-content: center !important; }
-    .header-el           { padding: 0.75rem 1rem !important; }
+    .header-el           { padding: 0.5rem 1rem !important; }
     .header-title        { font-size: 14px !important; }
     .txn-meta            { display: none !important; }
     .txn-amount          { font-size: 13px !important; }
