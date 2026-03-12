@@ -82,7 +82,10 @@ const globalStyles = `
   }
 
   /* ── Mobile (< 768px) — todos os celulares ───────────── */
+  .pwa-banner-wrapper  { display: none; }
+
   @media (max-width: 767px) {
+    .pwa-banner-wrapper  { display: block; }
     .sidebar-el          { transform: translateX(-100%) !important; width: 240px !important; min-width: 240px !important; position: fixed !important; z-index: 200 !important; }
     .sidebar-el.open     { transform: translateX(0) !important; }
     .sidebar-label       { opacity: 1 !important; width: auto !important; }
