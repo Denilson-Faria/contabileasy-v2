@@ -18,7 +18,9 @@ export default function Header() {
   const noMonthNav = ["metas", "categorias"];
 
   return (
-    <header className="header-el" style={{ position: "sticky", top: 0, background: theme.header, backdropFilter: "blur(20px)", borderBottom: `1px solid ${theme.border}`, padding: "1.25rem 2rem", paddingTop: "max(1.25rem, calc(1.25rem + env(safe-area-inset-top)))", display: "flex", alignItems: "center", justifyContent: "space-between", zIndex: 50 }}>
+    <>
+      <div style={{ height: "env(safe-area-inset-top)", background: theme.header, position: "sticky", top: 0, zIndex: 51 }} />
+      <header className="header-el" style={{ position: "sticky", top: 0, background: theme.header, backdropFilter: "blur(20px)", borderBottom: `1px solid ${theme.border}`, padding: "1.25rem 2rem", display: "flex", alignItems: "center", justifyContent: "space-between", zIndex: 50 }}>
       <div>
         <h1 className="header-title" style={{ fontSize: 18, fontWeight: 700, color: theme.text, margin: 0 }}>{tabLabel}</h1>
         {!noMonthNav.includes(activeTab) && (
@@ -46,5 +48,6 @@ export default function Header() {
         </div>
       )}
     </header>
+    </>
   );
 }

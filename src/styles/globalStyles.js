@@ -8,6 +8,13 @@ const globalStyles = `
     overflow-x: hidden;
   }
 
+  /* PWA standalone: adiciona padding no topo para safe area do iPhone */
+  @media all and (display-mode: standalone) {
+    body {
+      padding-top: env(safe-area-inset-top);
+    }
+  }
+
   input, select, textarea, button {
     font-family: inherit;
     -webkit-appearance: none;
